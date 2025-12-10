@@ -86,6 +86,7 @@ const RevealPartner = () => {
               <h3 className="text-xl font-semibold text-green-600 mb-4">Your Secret Santa Recipient:</h3>
               <div className="text-left space-y-2">
                 <p><strong>Name:</strong> {receiver.name}</p>
+                <p><strong>Email:</strong> {receiver.email}</p>
                 <p><strong>Wishlist:</strong> {receiver.wishlist}</p>
                 <p><strong>Age:</strong> {receiver.age}</p>
                 <p><strong>Gender:</strong> {receiver.gender}</p>
