@@ -98,7 +98,6 @@ const TeamDashboard = () => {
                   {participants.map((participant) => (
                     <div key={participant.id} className="bg-gray-50 p-3 rounded-lg text-left">
                       <p className="font-medium">{participant.name}</p>
-                      <p className="text-sm text-gray-600">{participant.email}</p>
                     </div>
                   ))}
                 </div>
