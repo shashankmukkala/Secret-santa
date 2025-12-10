@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Snowfall from './components/Snowfall';
+import LandingPage from './pages/LandingPage';
 import Home from './pages/Home';
 import CreateTeam from './pages/CreateTeam';
 import JoinTeam from './pages/JoinTeam';
@@ -13,7 +14,8 @@ function App() {
     <Router>
       <Snowfall />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/app" element={<Home />} />
         <Route path="/create-team" element={<CreateTeam />} />
         <Route path="/join-team" element={<JoinTeam />} />
         <Route path="/dashboard" element={<TeamDashboard />} />

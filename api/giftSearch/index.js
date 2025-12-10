@@ -1,4 +1,3 @@
-import supabase from '../supabaseClient.js';
 const Groq = require('groq-sdk');
 
 function sanitizeAI(text) {
@@ -20,48 +19,16 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { team_code, email } = req.body;
+    const { query } = req.body;
 
-    if (!team_code || !email) {
-      return res.status(400).json({ error: 'team_code and email are required' });
+    if (!query || typeof query !== 'string' || query.trim() === '') {
+      return res.status(400).json({ error: 'query is required' });
     }
-
-    // Get team id
-    const { data: team, error: teamError } = await supabase
-      .from('teams')
-      .select('id')
-      .eq('team_code', team_code)
-      .single();
-
-    console.log('Team lookup:', { team, teamError });
-
-    if (teamError || !team) {
-      return res.status(400).json({ error: 'Invalid team code' });
-    }
-
-    // Get participant
-    const { data: participant, error: partError } = await supabase
-      .from('participants')
-      .select('name, age, gender, marital_status, wishlist')
-      .eq('email', email)
-      .eq('team_id', team.id)
-      .single();
-
-    console.log('Participant lookup:', { participant, partError });
-
-    if (partError || !participant) {
-      return res.status(400).json({ error: 'Participant not found in this team' });
-    }
-
-    // Build prompt
-    const participantJson = JSON.stringify(participant, null, 2);
 
     const prompt = `
-You are an expert Secret Santa gift recommender.
+Generate 15–20 gift ideas based on this search query: "${query}"
 
-Generate exactly 15 unique Secret Santa gift suggestions for this participant.
-
-Use the participant's age, gender, marital status, and wishlist.
+They must be practical, creative, and meaningful.
 
 For every gift item, include:
 - name: string
